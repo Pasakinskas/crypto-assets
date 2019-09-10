@@ -1,10 +1,11 @@
 <?php
 
-use App\Models\Asset;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+// $router->get('/assets', ['middleware' => 'auth', "AssetController@getAllAssets"]);
 
-$router->get('/assets', "AssetController@getAllAssets");
+use App\Http\Controllers\AssetController;
+use Illuminate\Http\Request;
+
+$router->get('/assets', ['middleware' => 'auth', 'uses' => "AssetController@getAllAssets"]);
 
 $router->get('/assets/{id}', "AssetController@getAssetById");
 

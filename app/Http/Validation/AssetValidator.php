@@ -4,6 +4,7 @@
 namespace App\Http\Validation;
 
 
+use App\Http\Validation\Components\CurrencyEnum;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use Exception;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Validation;
+namespace App\Http\Validation\Components;
 
 
 use MyCLabs\Enum\Enum;

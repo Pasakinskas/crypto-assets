@@ -6,17 +6,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Validation\AssetValidator;
 use App\Models\Asset;
+use App\Models\User;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Hash;
 
 class AssetController extends Controller {
 
     use AssetValidator;
 
+    // $request->user() is the authenticated user
     public function getAllAssets() {
+//        $user = new User([
+//            "name" => "barry",
+//            "email" => "testemail@email.com",
+//        ]);
+//
+//        $user->password = Hash::make("testemail");
+//        $user->save();
+
         return Asset::all();
     }
 
