@@ -16,8 +16,8 @@ class Authenticate
     }
 
     public function handle($request, Closure $next) {
-        return $request->user() == null ?
-            response(["error" => "invalid username or password"], 403) :
-            $next($request);
+        return !$request->user()
+            ? response(["error" => "invalid username or password"], 403)
+            : $next($request);
     }
 }

@@ -13,14 +13,19 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller {
-    use loginValidator;
+
+    protected $loginValidator;
+
+    public function __construct(LoginValidator $loginValidator) {
+        $this->loginValidator = $loginValidator;
+    }
 
     public function authenticate(Request $request) {
-        $loginData = $this->validateLoginData($request);
+        $loginData = $this->loginValidator->validateLoginData($request);
         try {
             $user = User::where('email', $loginData["email"])->first();
             if (!$user) {
-                return new Response(["error:" => "Invalid email"], 404);
+                return new Response(["error" => "Invalid email"], 401);
             }
 
             if (Hash::check($loginData["password"], $user->password)) {
@@ -32,14 +37,14 @@ class AuthController extends Controller {
 
                 $jwt = JWT::encode($payload, $key);
                 return [
-                    "success:" => "true",
+                    "success" => "true",
                     "token" => $jwt
                 ];
             }
 
-            return new Response(["error:" => "Invalid password"], 404);
+            return new Response(["error" => "Invalid password"], 404);
         } catch(Exception $e)  {
-            return new Response(["error:" => $e->getMessage()], 404);
+            return new Response(["error" => $e->getMessage()], 404);
         }
     }
 }

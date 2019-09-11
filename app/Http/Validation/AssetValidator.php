@@ -11,7 +11,7 @@ use Exception;
 
 use Laravel\Lumen\Routing\ProvidesConvenienceMethods;
 
-trait AssetValidator {
+class AssetValidator {
     use ProvidesConvenienceMethods;
 
     public function validateAsset(Request $request) {
@@ -19,13 +19,12 @@ trait AssetValidator {
             "label" => "required",
             "currency" => "required",
             "value" => "required|numeric|min:0",
-            "user_id" => "required|numeric"
         ]);
 
         if (CurrencyEnum::isValid($validatedBody["currency"])) {
             return new Asset($validatedBody);
         } else {
-            Throw new Exception("Provided currency fails enum type validation");
+            Throw new Exception("Provided currency fails validation");
         }
     }
 }

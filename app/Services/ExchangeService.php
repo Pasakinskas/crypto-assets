@@ -6,7 +6,7 @@ namespace App\Services;
 
 use Requests;
 
-trait ExchangeService {
+class ExchangeService {
 
     private static $BTC_URI = "https://api.coindesk.com/v1/bpi/currentprice/";
     private static $ETH_URI ="https://api.livecoin.net/exchange/ticker?currencyPair=ETH/";
@@ -24,7 +24,7 @@ trait ExchangeService {
         return json_decode($response, true)["last"];
     }
 
-    function getMiotaPrice($currency) {
+    function getIotaPrice($currency) {
         $uri = self::$MIOTA_URI . strtoupper($currency) . "&api_key=" . getenv("CRYPTOCOMPARE_API_KEY");
         $response = Requests::get($uri)->body;
         return json_decode($response, true)["EUR"];

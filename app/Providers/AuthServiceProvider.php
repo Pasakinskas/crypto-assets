@@ -19,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['auth']->viaRequest('api', function ($request) {
             try {
                 $token = $request->header("token");
-                $decoded = JWT::decode($token, env("JWT_SECRET"), array('HS256'));
+                $decoded = JWT::decode($token, env("JWT_SECRET"), array("HS256"));
                 $decodedArray = (array) $decoded;
             } catch (UnexpectedValueException $e) {
                 return null;
