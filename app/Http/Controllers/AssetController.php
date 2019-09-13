@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Services\AssetRepository;
+use App\Repositories\AssetRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

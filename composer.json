@@ -11,7 +11,8 @@
         "firebase/php-jwt": "^5.0",
         "laravel/lumen-framework": "5.8.*",
         "myclabs/php-enum": "^1.7",
-        "rmccue/requests": "^1.7"
+        "rmccue/requests": "^1.7",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",

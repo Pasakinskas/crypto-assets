@@ -1,29 +1,36 @@
 <?php
 
+use App\Models\Asset;
+use Firebase\JWT\JWT;
 
 class AssetControllerTest extends TestCase {
 
-    private function getJwtToken() {
-        return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NiwiZW1haWwiOiJ0ZXN0ZW1haWxAZW1haWwuY29tIn0.yO-AdgtzjJu44sQqHft8S6eAJEH7pcXwlHrrG41i5AU";
-    }
-
-    private function getAssetId() {
-        return 10;
-    }
-
     public function testGetAllUserAssets() {
         $this->get('/assets', ["token" => $this->getJwtToken()]);
-        $this->assertEquals(200, $this->response->getStatusCode(), "GET /assets status 200");
+        $this->assertEquals(200, $this->response->getStatusCode());
         $this->isType("array");
     }
 
     public function testGetAllUserAssetsWithoutAuth() {
         $this->get('/assets');
-        $this->assertEquals(403, $this->response->getStatusCode(), "GET /assets fails without auth");
+        $this->assertEquals(403, $this->response->getStatusCode());
     }
 
     public function testGetUserAssetById() {
         $this->get('/assets/' . $this->getAssetId(), ["token" => $this->getJwtToken()]);
-        $this->assertEquals(200, $this->response->getStatusCode(), "GET /assets/id status 200");
+        $this->assertEquals(200, $this->response->getStatusCode());
+    }
+
+    private function getJwtToken() {
+        $payload = array(
+            "id" => 1,
+            "email" => "test@gmail.com"
+        );
+
+        return JWT::encode($payload, env("JWT_SECRET"));
+    }
+
+    private function getAssetId() {
+        return Asset::where("user_id", 1)->get()[0]["id"];
     }
 }

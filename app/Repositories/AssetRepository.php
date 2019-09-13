@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace App\Repositories;
 
 
 use App\Http\Validation\AssetValidator;
