@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  test_db:
+    image: mariadb
+    restart: always
+    ports:
+      - 33061:3306
+    environment:
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: test
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"

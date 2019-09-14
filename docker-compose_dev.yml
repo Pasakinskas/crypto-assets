@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  dev_db:
+    image: mariadb
+    restart: always
+    ports:
+      - 33062:3306
+    environment:
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+      MYSQL_DATABASE: dev
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"

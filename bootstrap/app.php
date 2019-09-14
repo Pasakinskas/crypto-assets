@@ -2,6 +2,13 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::create(__DIR__, '../.env.default');
+$dotenv->load();
+
+if (file_exists('../.env')) {
+    $dotenv = Dotenv\Dotenv::create(__DIR__, '../.env');
+    $dotenv->overload();
+}
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
 ))->bootstrap();
