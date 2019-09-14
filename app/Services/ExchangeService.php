@@ -10,7 +10,7 @@ use Requests;
 class ExchangeService {
 
     private static $BTC_URI = "https://api.coindesk.com/v1/bpi/currentprice/";
-    private static $ETH_URI ="https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=";
+    private static $ETH_URI = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=";
     private static $IOTA_URI = "https://min-api.cryptocompare.com/data/price?fsym=MIOTA&tsyms=";
 
     private function getBtcPrice($currency) {
@@ -52,7 +52,17 @@ class ExchangeService {
             $sum = bcadd($assetValueInFiat, $sum, 2);
         }
         return $sum;
+
+//        $sum = array_reduce($assetList, function($acc, $asset) use ($cryptoValues) {
+//            $cryptoType = $asset["currency"];
+//            $cryptoAmount = $asset["value"];
+//            $assetValue = bcmul($cryptoValues[$cryptoType], $cryptoAmount, 6);
+//            return bcadd($acc, $assetValue, 6);
+//        }, "0");
+//
+//        return bcadd($sum, '0', 2);
     }
+
 
     function calculateAssetValue($asset, $currency) {
         $cryptoCurrency = $asset["currency"];

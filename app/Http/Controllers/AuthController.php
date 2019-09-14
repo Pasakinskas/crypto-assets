@@ -22,29 +22,25 @@ class AuthController extends Controller {
 
     public function authenticate(Request $request) {
         $loginData = $this->loginValidator->validateLoginData($request);
-        try {
-            $user = User::where('email', $loginData["email"])->first();
-            if (!$user) {
-                return new Response(["error" => "Invalid email"], 401);
-            }
-
-            if (Hash::check($loginData["password"], $user->password)) {
-                $key = env("JWT_SECRET");
-                $payload = array(
-                    "id" => $user->id,
-                    "email" => $user->email
-                );
-
-                $jwt = JWT::encode($payload, $key);
-                return [
-                    "success" => "true",
-                    "token" => $jwt
-                ];
-            }
-
-            return new Response(["error" => "Invalid password"], 404);
-        } catch(Exception $e)  {
-            return new Response(["error" => $e->getMessage()], 404);
+        $user = User::where('email', $loginData["email"])->first();
+        if (!$user) {
+            return new Response(["error" => "Invalid email or password"], 401);
         }
+
+        if (Hash::check($loginData["password"], $user->password)) {
+            $key = env("JWT_SECRET");
+            $payload = array(
+                "id" => $user->id,
+                "email" => $user->email
+            );
+
+            $jwt = JWT::encode($payload, $key);
+            return [
+                "success" => "true",
+                "token" => $jwt
+            ];
+        }
+
+        return new Response(["error" => "Invalid email or password"], 404);
     }
 }

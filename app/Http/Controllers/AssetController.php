@@ -23,44 +23,45 @@ class AssetController extends Controller {
     }
 
     public function getById(Request $request, $id) {
-        try {
-            $userId = $request->user()["id"];
-            $asset = $this->assets->getUserAssetById($userId, $id);
+        $userId = $request->user()["id"];
+        $asset = $this->assets->getUserAssetById($userId, $id);
+        if ($asset) {
             return new Response($asset, 200);
-        } catch (Exception $e) {
-            return new Response(["error" => $e->getMessage()], 404);
+        } else {
+            return new Response("", 404);
         }
     }
 
     public function deleteById(Request $request, $id) {
-        try {
-            $userId = $request->user()["id"];
-            $this->assets->deleteUserAssetById($userId, $id);
+        $userId = $request->user()["id"];
+        $deleted = $this->assets->deleteUserAssetById($userId, $id);
+        if ($deleted) {
             return new Response("", 204);
-        } catch (Exception $e) {
-            return new Response(["error" => $e->getMessage()], 404);
+        } else {
+            return new Response("", 404);
         }
+
+
     }
 
     public function updateById(Request $request, $id) {
-        try {
-            $userId = $request->user()["id"];
-            $updated = $this->assets->updateAsset($request, $id, $userId);
+        $userId = $request->user()["id"];
+        $updated = $this->assets->updateAsset($request, $id, $userId);
 
+        if ($updated) {
             return new Response($updated);
-        } catch (Exception $e) {
-            return new Response($e, 404);
+        } else {
+            return new Response("", 404);
         }
     }
 
     public function create(Request $request) {
-        try {
-            $userId = $request->user()["id"];
-            $asset = $this->assets->createNewAsset($request, $userId);
-
+        $userId = $request->user()["id"];
+        $asset = $this->assets->createNewAsset($request, $userId);
+        if ($asset) {
             return new Response($asset, 201);
-        } catch(Exception $e) {
-            return new Response(["error" => $e->getMessage()], 400);
+        } else {
+            return new Response("", 400);
         }
     }
 }

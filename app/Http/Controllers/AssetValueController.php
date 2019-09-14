@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Validation\Components\FiatCurrencyEnum;
 use App\Repositories\AssetRepository;
 use App\Services\ExchangeService;
 use Illuminate\Http\Request;
@@ -24,7 +25,10 @@ class AssetValueController extends AssetController {
 
         $asset = $this->assets->getUserAssetById($userId, $id);
         $assetValue = $this->exchangeService->calculateAssetValue($asset, $currency);
-        return new Response($assetValue);
+        return new Response([
+            "currency" => $currency,
+            "assetValue" => $assetValue
+        ]);
     }
 
     public function getAllValue(Request $request) {
@@ -32,12 +36,17 @@ class AssetValueController extends AssetController {
         $userId = $request->user()["id"];
 
         $userAssets = $this->assets->getAllUserAssets($userId);
-        $totalValue = $this->exchangeService->calculateTotalValue($userAssets, $currency);
-        return new Response($totalValue);
+        $assetValue = $this->exchangeService->calculateTotalValue($userAssets, $currency);
+        return new Response([
+            "currency" => $currency,
+            "assetValue" => $assetValue
+        ]);
     }
 
     private function getCurrencyFromRequest(Request $request) {
-        $currency = $request->query("currency");
-        return $currency ? $currency : "usd";
+        $currency = strtoupper($request->query("currency"));
+
+        return $currency && FiatCurrencyEnum::isValid($currency) ?
+            $currency : "usd";
     }
 }

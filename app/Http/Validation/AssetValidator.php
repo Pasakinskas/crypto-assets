@@ -4,7 +4,7 @@
 namespace App\Http\Validation;
 
 
-use App\Http\Validation\Components\CurrencyEnum;
+use App\Http\Validation\Components\CryptoCurrencyEnum;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use Exception;
@@ -21,10 +21,7 @@ class AssetValidator {
             "value" => "required|numeric|min:0",
         ]);
 
-        if (CurrencyEnum::isValid($validatedBody["currency"])) {
-            return new Asset($validatedBody);
-        } else {
-            Throw new Exception("Provided currency fails validation");
-        }
+        return CryptoCurrencyEnum::isValid($validatedBody["currency"]) ?
+         new Asset($validatedBody) : null;
     }
 }

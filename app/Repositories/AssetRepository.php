@@ -23,7 +23,7 @@ class AssetRepository {
         return Asset::where([
             "user_id" => $userId,
             "id" => $assetId
-        ])->get();
+        ])->first();
     }
 
     public function deleteUserAssetById($userId, $assetId) {
@@ -35,6 +35,9 @@ class AssetRepository {
 
     public function createNewAsset($request, $userId) {
         $asset = $this->validator->validateAsset($request);
+        if (!$asset) {
+            return null;
+        }
         $asset["user_id"] = $userId;
         $asset->save();
         return $asset;
@@ -42,6 +45,9 @@ class AssetRepository {
 
     public function updateAsset($request, $assetId, $userId) {
         $newAsset = $this->validator->validateAsset($request);
+        if (!$newAsset) {
+            return null;
+        }
         $oldAsset = Asset::where([
                 "user_id" => $userId,
                 "id" => $assetId
