@@ -6,9 +6,8 @@ use App\Models\User;
 class AuthControllerTest extends TestCase {
 
     public function testSuccessfulLogin() {
-        $user = User::get()[0];
         $this->post('/auth', [
-            "email" => $user["email"],
+            "email" => "test@user.com",
             "password" => "password"
         ]);
 

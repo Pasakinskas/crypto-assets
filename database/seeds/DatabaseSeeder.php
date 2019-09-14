@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->call('UsersTableSeeder');
-        $this->call('AssetsTableSeeder');
+        $this->call("DatabaseCleaner");
+        $this->call("UsersTableSeeder");
+        $this->call("AssetsTableSeeder");
     }
 }
