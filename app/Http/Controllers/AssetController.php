@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 
 use App\Repositories\AssetRepository;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -40,8 +39,6 @@ class AssetController extends Controller {
         } else {
             return new Response("", 404);
         }
-
-
     }
 
     public function updateById(Request $request, $id) {

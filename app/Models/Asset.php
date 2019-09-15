@@ -9,10 +9,10 @@ class Asset extends Model {
     use SoftDeletes;
 
     protected $fillable = [
-        'label', 'currency', 'value', "user_id"
+        "label", "currency", "value", "user_id"
     ];
 
     public function owner() {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo("App\Models\User");
     }
 }

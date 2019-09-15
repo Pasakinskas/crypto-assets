@@ -7,7 +7,6 @@ namespace App\Http\Validation;
 use App\Http\Validation\Components\CryptoCurrencyEnum;
 use App\Models\Asset;
 use Illuminate\Http\Request;
-use Exception;
 
 use Laravel\Lumen\Routing\ProvidesConvenienceMethods;
 

@@ -1,12 +1,10 @@
 <?php
 
 
-use App\Models\User;
-
 class AuthControllerTest extends TestCase {
 
     public function testSuccessfulLogin() {
-        $this->post('/auth', [
+        $this->post("/auth", [
             "email" => "test@user.com",
             "password" => "password"
         ]);
@@ -17,7 +15,7 @@ class AuthControllerTest extends TestCase {
     }
 
     public function testBadLogin() {
-        $this->post('/auth', [
+        $this->post("/auth", [
             "email" => "testmail@email.com",
             "password" => "incorrectPassword"
         ]);
@@ -30,7 +28,7 @@ class AuthControllerTest extends TestCase {
     }
 
     public function testNoEmailEnteredLogin() {
-        $this->post('/auth', [
+        $this->post("/auth", [
             "password" => "incorrectPassword"
         ]);
 
@@ -38,7 +36,7 @@ class AuthControllerTest extends TestCase {
     }
 
     public function testNoPasswordEnteredLogin() {
-        $this->post('/auth', [
+        $this->post("/auth", [
             "email" => "testemail@email.com"
         ]);
 

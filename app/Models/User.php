@@ -13,16 +13,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Authenticatable, Authorizable, SoftDeletes;
 
     public function assets() {
-        return $this->hasMany('App\Models\Asset');
+        return $this->hasMany("App\Models\Asset");
     }
 
     protected $fillable = [
-        'name', 'email',
+        "name", "email",
     ];
 
     protected $hidden = [
-        'password',
+        "password",
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ["deleted_at"];
 }

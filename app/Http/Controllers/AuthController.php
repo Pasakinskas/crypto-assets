@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Validation\loginValidator;
 use App\Models\User;
-use Exception;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

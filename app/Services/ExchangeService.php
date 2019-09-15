@@ -52,17 +52,7 @@ class ExchangeService {
             $sum = bcadd($assetValueInFiat, $sum, 2);
         }
         return $sum;
-
-//        $sum = array_reduce($assetList, function($acc, $asset) use ($cryptoValues) {
-//            $cryptoType = $asset["currency"];
-//            $cryptoAmount = $asset["value"];
-//            $assetValue = bcmul($cryptoValues[$cryptoType], $cryptoAmount, 6);
-//            return bcadd($acc, $assetValue, 6);
-//        }, "0");
-//
-//        return bcadd($sum, '0', 2);
     }
-
 
     function calculateAssetValue($asset, $currency) {
         $cryptoCurrency = $asset["currency"];

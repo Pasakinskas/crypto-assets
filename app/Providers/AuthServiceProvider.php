@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\User;
 use Firebase\JWT\JWT;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use UnexpectedValueException;
 
@@ -16,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     public function boot() {
-        $this->app['auth']->viaRequest('api', function ($request) {
+        $this->app["auth"]->viaRequest("api", function ($request) {
             try {
                 $token = $request->header("token");
                 $decoded = JWT::decode($token, env("JWT_SECRET"), array("HS256"));
