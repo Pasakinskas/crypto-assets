@@ -1,14 +1,7 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__."/../vendor/autoload.php";
 
-$dotenv = Dotenv\Dotenv::create(__DIR__, '../.env.default');
-$dotenv->load();
-
-if (file_exists('../.env')) {
-    $dotenv = Dotenv\Dotenv::create(__DIR__, '../.env');
-    $dotenv->overload();
-}
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
 ))->bootstrap();
@@ -35,25 +28,17 @@ $app->singleton(
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
- $app->routeMiddleware([
-     'auth' => App\Http\Middleware\Authenticate::class,
- ]);
+$app->routeMiddleware([
+    "auth" => App\Http\Middleware\Authenticate::class
+]);
 
-/*
-|--------------------------------------------------------------------------
-| Register Service Providers
-|--------------------------------------------------------------------------
-*/
-
-// $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    "namespace" => "App\Http\Controllers",
 ], function ($router) {
-    require __DIR__.'/../routes/assetRouter.php';
-    require __DIR__.'/../routes/authRouter.php';
+    require __DIR__."/../routes/assetRouter.php";
+    require __DIR__."/../routes/authRouter.php";
 });
 
 return $app;

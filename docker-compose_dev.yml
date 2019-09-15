@@ -6,7 +6,7 @@ services:
     image: mariadb
     restart: always
     ports:
-      - 33062:3306
+      - 3306:3306
     environment:
       MYSQL_USER: dev
       MYSQL_PASSWORD: dev
